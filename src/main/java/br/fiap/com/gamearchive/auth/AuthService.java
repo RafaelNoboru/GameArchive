@@ -1,8 +1,8 @@
-package auth;
+package br.fiap.com.gamearchive.auth;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import user.User;
-import user.UserRepository;
+import br.fiap.com.gamearchive.user.UserRepository;
 
 @Service
 public class AuthService {

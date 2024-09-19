@@ -1,4 +1,4 @@
-package auth;
+package br.fiap.com.gamearchive.auth;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

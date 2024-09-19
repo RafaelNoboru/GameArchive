@@ -1,4 +1,4 @@
-package user;
+package br.fiap.com.gamearchive.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,5 +13,4 @@ public class User {
     String name;
     String password;
     String email;
-    String avatar;
 }
