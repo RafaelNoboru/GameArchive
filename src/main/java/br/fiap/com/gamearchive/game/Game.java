@@ -5,7 +5,7 @@ import lombok.Data;
 import br.fiap.com.gamearchive.user.User;
 
 @Entity
-@Table(name = "tb_java_ga_games")
+@Table(name = "TB_JAVA_GA_GAMES")
 @Data
 public class Game {
 
