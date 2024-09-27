@@ -1,0 +1,44 @@
+
+trigger:
+  - main  # Substitua pela sua branch principal, se diferente
+
+pool:
+  vmImage: 'ubuntu-latest'  # Você pode usar 'windows-latest' se preferir
+
+variables:
+  JAVA_VERSION: '17'  # Substitua pela versão do JDK que sua aplicação requer
+
+steps:
+  # Passo 1: Configurar o JDK
+  - task: UseJava@1
+    inputs:
+      versionSpec: '$(JAVA_VERSION)'
+      distribution: 'temurin'  # Outras opções: 'adopt', 'zulu', 'corretto', etc.
+      javaArchitecture: 'x64'
+    displayName: 'Configurar JDK $(JAVA_VERSION)'
+
+  # Passo 2: Verificar a Configuração do Java (Opcional, para depuração)
+  - script: |
+      java -version
+      echo "JAVA_HOME está configurado para $JAVA_HOME"
+    displayName: 'Verificar Configuração do Java'
+
+  # Passo 3: Executar o Build com Maven
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install'
+      options: '--batch-mode'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '$(JAVA_VERSION)'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    displayName: 'Construir com Maven'
+
+  # Passo 4: Publicar Artefatos (Opcional)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+    displayName: 'Publicar Artefatos'
